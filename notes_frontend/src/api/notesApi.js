@@ -5,10 +5,14 @@ const DEFAULT_BASE_URL = 'http://localhost:3001';
  * CRA only exposes variables prefixed with REACT_APP_.
  */
 function getBaseUrl() {
+  // Create React App exposes only variables prefixed with REACT_APP_.
+  // Support a few common names to reduce integration friction.
   const envUrl =
     (typeof process !== 'undefined' &&
       process.env &&
-      (process.env.REACT_APP_BACKEND_BASE_URL || process.env.REACT_APP_API_BASE_URL)) ||
+      (process.env.REACT_APP_API_BASE ||
+        process.env.REACT_APP_API_BASE_URL ||
+        process.env.REACT_APP_BACKEND_BASE_URL)) ||
     '';
 
   return (envUrl || DEFAULT_BASE_URL).replace(/\/$/, '');
